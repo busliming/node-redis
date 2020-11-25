@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link href="https://cdn.bootcss.com" rel="dns-prefetch">
+  <link href="https://cdn.jsdelivr.net" rel="dns-prefetch">
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+  <link href="/css/site.css" rel="stylesheet">
+</head>
+
+<body>
+  <div class="site-header">
+    <div class="container jumbotron">
+      <div class="row">
+        <div class="col-xs-12">
+          <h1>PandaCDN<img src="/assets/img/bootcdn.png" alt="BootCDN logo" class="hidden"></h1>
+          <p>稳定、快速、免费的前端开源项目 CDN 加速服务
+            <br>
+            <span class="package-amount">共收录了 <strong><%=list.length %></strong></strong> 个前端开源项目</span>
+          </p>
+          <div class="search-wraper" role="search">
+            <div class="form-group">
+              <input type="text" id="search-input" class="form-control search clearable" placeholder="搜索开源库，例如：jquery" autocomplete="off"
+                autofocus="on" tabindex="0" autocorrect="off" autocapitalize="off" spellcheck="false">
+              <i id="search-btn" class="fa fa-search" style="cursor:pointer"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <main class="packages-list-container" id="all-packages">
+    <div class="container">
+      <div class="package all-packages" id="search-loading" style="display: none; text-align: center;">
+        <a>数据正在努力加载中......</a>
+      </div>
+      <div class="list-group packages" id="common-packages">
+        <% list.forEach(item => { %>
+        <a href="/vue/" class="package list-group-item" target="_blank"
+          onclick="_hmt.push(['_trackEvent', 'packages', 'click', 'vue'])">
+          <div class="row">
+            <div class="col-md-3">
+              <h4 class="package-name"><%=item.name %></h4>
+            </div>
+            <div class="col-md-5 hidden-xs">
+              <p class="package-description">gitHub: <%=item.url %></p>
+            </div>
+            <div class="col-md-2 hidden-xs">
+              <p class="package-description">forks: <%=item.forks %></p>
+            </div>
+            <div class="col-md-2 hidden-xs">
+              <p class="package-description">language: <%=item.language %></p>
+            </div>
+          </div>
+        </a>
+        <% }) %>
+        <!-- <a href="/all/" class="package list-group-item all-packages" target="_blank"
+          onclick="_hmt.push(['_trackEvent', 'packages', 'click', 'all'])"></a> -->
+      </div>
+      <div class="package all-packages" id="search-no-data" style="text-align: center;display: <%= list.length==0?'block':'none' %>">
+        <a>暂无数据，请输入您要查找的开源库！</a>
+      </div>
+      
+    </div>
+  </main>
+  <script>
+    window.onload = function(){
+      let btn = document.getElementById('search-btn');
+      let input = document.getElementById('search-input');
+      let nodata = document.getElementById('search-no-data');
+      let common = document.getElementById('common-packages');
+      let loading = document.getElementById('search-loading');
+      btn.addEventListener('click', function(){
+        loading.style.display = 'block';
+        nodata.style.display = 'none';
+        common.style.display = 'none';
+        window.location.href='?username='+input.value.replace(/\s+/g,"")
+      })
+      
+      
+    }
+  </script>
+</body>
+
+</html>
